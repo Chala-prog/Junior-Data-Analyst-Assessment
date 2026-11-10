@@ -11,9 +11,10 @@ Responses to the Tunda Box Junior Data Analyst Assessment (fictional fruit and v
 | `README.md` | This file: my written responses to every question |
 | `THOUGHT_PROCESS.md` | README explaining my approach, assumptions and the checks I ran |
 | `solutions.ipynb` | Notebook with the SQL (run in SQLite) and Python (pandas) solutions, all outputs visible |
-| Assessment copy (Google Drive) | The assessment document with all responses filled in: **[PASTE YOUR GOOGLE DRIVE LINK HERE]** |
+| `Junior-Data-Analyst-Candidate-Assessment.docx` | The assessment document with all responses filled in (same answers as this README) |
+| Google Drive copy | The same document saved to Drive: **[PASTE YOUR GOOGLE DRIVE LINK HERE]** |
 
-**How to run:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YOUR-USERNAME/YOUR-REPO-NAME/blob/main/solutions.ipynb) then choose Runtime > Restart session and run all. Only `pandas` and the Python standard library are used.
+**How to run:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Chala-prog/Junior-Data-Analyst-Assessment/blob/main/solutions.ipynb) then choose Runtime > Restart session and run all. Only `pandas` and the Python standard library are used.
 
 ## Headline results
 
