@@ -12,7 +12,7 @@ Responses to the Tunda Box Junior Data Analyst Assessment (fictional fruit and v
 | `THOUGHT_PROCESS.md` | README explaining my approach, assumptions and the checks I ran |
 | `solutions.ipynb` | Notebook with the SQL (run in SQLite) and Python (pandas) solutions, all outputs visible |
 | `Junior-Data-Analyst-Candidate-Assessment.docx` | The assessment document with all responses filled in (same answers as this README) |
-| Google Drive copy | The same document saved to Drive: **[PASTE YOUR GOOGLE DRIVE LINK HERE]** |
+| Google Drive copy | The same document saved to Drive: **[[PASTE YOUR GOOGLE DRIVE LINK HERE](https://docs.google.com/document/d/1tDZH4eTX54Pws5csI1w0JC281_gz8eYx/edit?usp=sharing&ouid=117859859304265881748&rtpof=true&sd=true)]** |
 
 **How to run:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Chala-prog/Junior-Data-Analyst-Assessment/blob/main/solutions.ipynb) then choose Runtime > Restart session and run all. Only `pandas` and the Python standard library are used.
 
@@ -40,9 +40,10 @@ Responses to the Tunda Box Junior Data Analyst Assessment (fictional fruit and v
 
 ### Your analysis
 
-**Work example (my own experience).** I took a messy Excel data set (duplicate rows, errors and missing values), cleaned and organised it, and built pivot tables and charts so managers could track performance at a glance. **Question:** can the managers trust this data and see how things are going without digging through raw rows? **What changed:** the data was quality-checked once and turned into a clear, reusable view that managers used for their tracking.
+**Work example (my own experience).** I took a messy Excel data set (duplicate rows, errors and missing values), cleaned and organised it, and built pivot tables and charts so managers could track performance at a glance. 
+**Question:** can the managers trust this data and see how things are going without digging through raw rows? 
+**What changed:** the data was quality-checked once and turned into a clear, reusable view that managers used for their tracking.
 
-**Study example.** For a (fictional) Gikomba market stall I answered "How is the business doing, is it growing, what should be restocked?" using core Python. Sales grew **10.66%** week on week (KES 22,050 to 24,400), weekend days averaged **82.5%** more than weekdays (KES 4,900 vs 2,685), and Tomatoes and Sukuma were below reorder level. My recommendation was to focus stock and hours on weekends and to restock those two products.
 
 ### Conflicting numbers
 
@@ -114,7 +115,7 @@ ORDER BY revenue_ex_outlier DESC;
 
 I send a short, honest message with the cleaned number and the caveats, not the raw figure:
 
-"Nairobi is our top city: KES 20,650 in completed-order revenue in this sample, well ahead of Mombasa (KES 5,150). Caveats: I removed one duplicate order and standardised city names. One Kisumu order of KES 185,000 looks like a data-entry error, so I excluded it until it is confirmed; if it is real, Kisumu would be first. One order has no matching customer and is left out. This is a small sample, so treat it as directional."
+-	Nairobi is our top city: KES 20,650 in completed-order revenue in this sample, well ahead of Mombasa (KES 5,150). Caveats: I removed one duplicate order and standardised city names. One Kisumu order of KES 185,000 looks like a data-entry error or outlier. So, I excluded it until it is confirmed. If it is real, Kisumu would be first. One order has no matching customer and is left out. This is a small sample, so treat it as directional.
 
 ### S3. Customers who never ordered
 
@@ -159,7 +160,12 @@ FROM t;
 | Repeat rate, all customers | 40.0% |
 | Repeat rate, buyers only | 50.0% |
 
-**How I worked it out:** keep completed orders only, remove the duplicate row, count orders per customer, and call a customer a repeat buyer if they have two or more. The question asks about "our customers", so the headline is **40%** (4 of 10); among the 8 customers who actually bought, it is 50%. Customer 105 only looks like a repeat buyer if the duplicate order 1006 is left in, and customer 999 is not in the customers table, so neither is counted.
+**How I worked it out:** 
+-	Keep completed orders only, 
+-	remove the duplicate row, 
+-	count orders per customer, and call a customer a repeat buyer if they have two or more.
+The question asks about "our customers", so the headline is 40% (4 of 10); among the 8 customers who actually bought, it is 50%. Customer 105 only looks like a repeat buyer if the duplicate order 1006 is left in, and customer 999 is not in the customers table, so neither is counted.
+
 
 ### S5. Month-on-month revenue
 
@@ -193,7 +199,11 @@ ORDER BY month;
 | 2026-08 | 192,000 | +2,723.5% | 7,000 | +2.9% |
 | 2026-09 | 10,300 | -94.6% | 10,300 | +47.1% |
 
-Read the right-hand columns: the as-recorded August spike and September crash are produced by the single KES 185,000 order. July is lower because the duplicate order 1006 is removed, the refunded order 1007 is excluded and order 1009 has no amount. September includes order 1020 (customer not found); without it September is KES 8,400 (+20.0%).
+Read the right-hand columns: the as-recorded;
+-	August spike and September crash are produced by the single KES 185,000 order. 
+-	July is lower because the duplicate order 1006 is removed, the refunded order 1007 is excluded and order 1009 has no amount. 
+-	September includes order 1020 (customer not found); without it September is KES 8,400 (+20.0%).
+
 
 ## Part 3: Data quality and spreadsheets
 
@@ -230,16 +240,19 @@ Without XLOOKUP: =IFERROR(PROPER(TRIM(VLOOKUP(B2, customers!A:B, 2, FALSE))), "N
 
 ### D3. Mean or median
 
-**Median.** Across the 15 completed orders that have an amount, the mean is **KES 14,540** but the median is **KES 2,400**. One KES 185,000 order pulls the mean far above what a normal order looks like, while the median stays close to the typical basket. Without that outlier the mean (KES 2,364) and median (KES 2,375) agree. I would report the median and mention the outlier separately.
+**Median.** 
+-	Across the 15 completed orders that have an amount, the mean is KES 14,540 but the median is KES 2,400. One KES 185,000 order pulls the mean far above what a normal order looks like, while the median stays close to the typical basket. Without that outlier the mean (KES 2,364) and median (KES 2,375) agree. I would report the median and mention the outlier separately.
 
 ## Part 4: Statistics
 
 ### T1(a). Explaining a p-value
 
-"Imagine our change did nothing at all. The p-value tells us how often we would still see a difference at least as big as the one we saw, just by luck. If that is rare (usually under 5%), luck is an unlikely explanation, so we take the result seriously. It does not tell us the probability that the change worked, or how big or valuable the effect is."
+A p-value is the probability that the result we observed (like a difference in sales between two groups) happened purely by random chance rather than a real effect. A low p-value (typically $< 0.05$) gives us high confidence that our change actually worked.
+-	Imagine our change did nothing at all. The p-value tells us how often we would still see a difference at least as big as the one we saw, just by luck. If that is rare (usually under 5%), luck is an unlikely explanation, so we take the result seriously. It does not tell us the probability that the change worked, or how big or valuable the effect is.
 
 ### T1(b). Do SMS offers cause the extra spending?
 
+**Causation vs. Correlation:** No, SMS offers do not automatically cause extra spending. Customers who opt-in to SMS might already be more loyal or higher-spending brand advocates (selection bias). To prove causation, a randomized controlled A/B test is required.
 **Not necessarily.** This is a correlation. Customers who receive SMS offers may already be the more engaged or higher-spending ones, for example if we targeted them or they opted in, so the difference could exist without any SMS (selection bias, a confounder). To show the SMS causes extra spending I would randomly hold out a group that gets no SMS and compare spending between the two groups, or at least compare each customer's spend before and after against a similar control group.
 
 ### T2. Read an A/B test
@@ -249,28 +262,43 @@ Without XLOOKUP: =IFERROR(PROPER(TRIM(VLOOKUP(B2, customers!A:B, 2, FALSE))), "N
 | Current | 1,000 | 50 | 5.0% |
 | New | 1,000 | 60 | 6.0% |
 
-The "+20%" is a relative lift; the absolute lift is 1 percentage point (10 extra conversions). A two-proportion z-test gives **z = 0.98, p = 0.33**, and the 95% confidence interval for the difference is about **-1.0 to +3.0 points**, which includes zero. So the result is **not statistically significant** and could easily be luck.
+**Analysis :**
+•	Current conversion: $50 / 1000 = 5\%$
+•	New checkout conversion: $60 / 1000 = 6\%$ (a 20% relative lift).
 
-**Recommendation: do not ship on this evidence.** Keep the test running: detecting a 1-point lift from 5% with 80% power needs about **8,100 users per variant** (we have 1,000). Before deciding, also check average order value, payment failures and drop-off by step, and whether the result is stable across the week.
+**Recommendation:** Do not ship immediately. Run a test for statistical significance (chi-square or z-test). With a sample size of only 1,000 users per variant, a 1% absolute difference is likely not statistically significant and could easily be noise.
+
 
 ## Part 5: Business case
 
 ### Part 5(a). What is happening?
 
-|  | Sep | Oct |
-| --- | --- | --- |
-| Blended conversion | 2,600 / 50,000 = 5.2% | 2,948 / 68,000 = 4.3% |
-| Organic | 2,400 / 40,000 = 6.0% | 2,318 / 38,000 = 6.1% |
-| Paid Social | 200 / 10,000 = 2.0% | 630 / 30,000 = 2.1% |
-| Paid Social share of sessions | 20.0% | 44.1% |
+**Working Through the Numbers**
+   **Channel-Level Breakdown:**
+       **Organic:**
+              - September: 2,400 orders / 40,000 sessions = 6.0% CR
+              - October: 2,318 orders / 38,000 sessions = 6.1% CR (Conversion slightly improved)
+       **Paid Social:**
+              - September: 200 orders / 10,000 sessions = 2.0% CR
+              - October: 630 orders / 30,000 sessions = 2.1% CR (Conversion slightly improved)
+**Overall Conversion Rate:**
+       o	September: $2,600 / 50,000 = \mathbf{5.2\%}$
+       o	October: $2,948 / 68,000 = \mathbf{4.34\%}$ (rounded to 4.3%)
+       
+**What is happening? (Simpson's Paradox):** The drop in overall conversion rate from 5.2% to 4.3% is not caused by falling performance within individual channels. In fact, conversion rates for both Organic and Paid Social improved slightly between September and October. Instead, the decline is driven entirely by a traffic mix shift (composition effect): low-converting Paid Social traffic surged from 20% of total traffic (10k out of 50k) in September to 44.1% of total traffic (30k out of 68k) in October. Because Paid Social naturally converts at a lower rate (~2%) than Organic (~6%), scaling up Paid Social pulled down the blended company-wide average.
 
-**What is happening:** conversion did not get worse in either channel (both rose slightly). Blended conversion fell because of a **mix shift**: Paid Social tripled from 10,000 to 30,000 sessions, and it converts at about a third of the organic rate, so it dragged down the average. With September's traffic mix, October's blended rate would have been about 5.3%. Total orders actually grew 13.4% (2,600 to 2,948), with Paid Social orders up from 200 to 630. Organic sessions fell 5% and organic orders fell 3.4%.
+**What else would you want to know?**
+	**Customer Acquisition Cost (CAC) vs. Lifetime Value (LTV):** Is Paid Social profitable despite its lower conversion rate, and what are the customer quality/retention metrics across channels?
+	**Marketing Spend & Attribution:** Why did Paid Social traffic triple? Did budget increase, or did acquisition costs change?
+	**Funnel Drop-off:** At which stage of the checkout funnel do Paid Social users drop off compared to Organic users?
 
-**What else I would want to know:** paid social spend, cost per order and ROAS or CAC; average order value, refund rate and repeat rate by channel (lifetime value); why organic sessions dropped (seasonality, SEO, or paid taking organic traffic); whether the extra paid traffic is low quality or bot traffic; and whether attribution is tracked consistently in both months.
 
 ### Part 5(b). Recommendation (two sentences)
 
-"Please don't pause paid social: the drop from 5.2% to 4.3% is because paid social grew from 20% to 44% of traffic, while conversion in each channel held steady or rose (organic 6.0% to 6.1%, paid 2.0% to 2.1%) and total orders grew 13%. Let's judge paid social on cost per order and customer value, and I will pull that data this week so we can decide whether to scale, hold or trim it."
+**Recommendation to the Head of Growth**
+-	Paid social is not hurting conversion rates; rather, our overall conversion drop is a mix shift caused by scaling low-converting traffic from 20% to 44% of our total volume. 
+-	Instead of pausing paid social, we should analyze its CAC and LTV profitability and optimize the channel's landing page funnel to improve its 2.1% conversion rate."
+
 
 ## Part 6: Your questions
 
@@ -280,4 +308,3 @@ The "+20%" is a relative lift; the absolute lift is 1 percentage point (10 extra
 - Which tools and data sources does the team use, and how clean are they?
 - Is there one agreed definition of revenue and conversion, and who owns it?
 - How does the team handle it when two numbers don't match?
-- What does success look like for this role after 90 days?
